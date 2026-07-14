@@ -1,0 +1,13 @@
+{% extends 'books/base.html' %}
+{% block content %}
+    <h1>Список книг</h1>
+    <ul>
+        {% for book in books %}
+            <li>
+                <a href="{% url 'book_detail' book.pk %}"><strong>{{ book.title }}</strong></a> — {{ book.author }} ({{ book.genre }})
+            </li>
+        {% empty %}
+            <li>Книг пока нет.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

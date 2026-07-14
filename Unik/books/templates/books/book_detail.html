@@ -1,0 +1,27 @@
+{% extends 'books/base.html' %}
+{% block content %}
+    <h1>{{ book.title }}</h1>
+    <p><strong>Автор:</strong> {{ book.author }}</p>
+    <p><strong>Жанр:</strong> {{ book.genre }}</p>
+    <p><strong>Дата публикации:</strong> {{ book.published_date }}</p>
+    <p><strong>Описание:</strong> {{ book.description }}</p>
+
+    {% if user.is_staff %}
+        <a href="{% url 'edit_book' book.pk %}" class="btn">Редактировать</a>
+        <a href="{% url 'delete_book' book.pk %}" class="btn btn-danger">Удалить</a>
+    {% endif %}
+
+    <hr>
+    <h3>Рецензии</h3>
+    <a href="{% url 'add_review' book.pk %}" class="btn">Оставить рецензию</a>
+    <ul>
+        {% for review in book.reviews.all %}
+            <li>
+                <strong>{{ review.reviewer_name }}</strong> (Оценка: {{ review.rating }}/5)<br>
+                {{ review.comment }} <br><small>{{ review.created_at }}</small>
+            </li>
+        {% empty %}
+            <p>Отзывов пока нет. Будьте первым!</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

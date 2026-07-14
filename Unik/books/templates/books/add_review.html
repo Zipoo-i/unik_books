@@ -1,0 +1,21 @@
+{% extends 'books/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Оставить отзыв к книге: "{{ book.title }}"</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Оценка (1–5)</label>
+            {{ form.rating }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Комментарий</label>
+            {{ form.comment }}
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+    </form>
+    
+    <a href="{% url 'book_detail' book.pk %}" class="btn btn-secondary mt-3">Отменить</a>
+</div>
+{% endblock %}

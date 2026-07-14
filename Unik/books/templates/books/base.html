@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Онлайн Библиотека</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        nav { margin-bottom: 20px; padding: 15px; background: #f4f4f4; border-radius: 5px; }
+        nav a { margin-right: 15px; text-decoration: none; color: #333; font-weight: bold; }
+        nav form { display: inline-block; margin-right: 20px; }
+        nav input { padding: 6px; width: 280px; }
+        .btn { display: inline-block; background: #007bff; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; }
+        .btn-danger { background: #dc3545; }
+        .btn-info { background: #17a2b8; }
+        .secondary { background: #6c757d; color: white; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'book_list' %}">Главная (Книги)</a>
+
+        <form method="get" action="{% url 'book_list' %}" style="display: inline-block;">
+            <input type="text" name="q" placeholder="Поиск книги или автора..." value="{{ request.GET.q|default:'' }}">
+            <button type="submit" class="btn">Найти</button>
+        </form>
+
+        {% if user.is_authenticated %}
+            <span style="margin: 0 15px;">Привет, <strong>{{ user.username }}</strong>!</span>
+            <a href="{% url 'add_book' %}" class="btn">+ Добавить книгу</a>
+
+            <form method="post" action="{% url 'logout' %}" style="display: inline-block; margin-left: 15px;">
+                {% csrf_token %}
+                <button type="submit" class="btn secondary">Выйти</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Войти</a>
+            <a href="{% url 'register' %}" style="margin-left: 10px;">Регистрация</a>
+        {% endif %}
+    </nav>
+
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
