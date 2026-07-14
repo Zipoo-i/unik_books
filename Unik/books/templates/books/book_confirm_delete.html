@@ -1,13 +1,11 @@
 {% extends 'books/base.html' %}
 {% block content %}
-<div class="container mt-5">
-    <h2>Удалить книгу</h2>
-    <p>Вы уверены, что хотите удалить книгу «{{ book.title }}»?</p>
+    <h1 style="color: #FF3333; text-transform: uppercase; font-size: 3em; margin-bottom: 0;">СТОП! 🛑</h1>
+    <h2 style="font-family: Arial, sans-serif;">Удаляем навсегда «{{ book.title }}»?</h2>
     
-    <form method="post">
+    <form method="post" style="margin-top: 40px;">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Удалить</button>
-        <a href="{% url 'book_list' %}" class="btn btn-secondary">Отмена</a>
+        <button type="submit" class="btn btn-danger" style="font-size: 1.5em; padding: 15px 30px;">ДА, УДАЛИТЬ</button>
+        <a href="{% url 'book_list' %}" class="btn btn-green" style="font-size: 1.5em; padding: 15px 30px; margin-left: 20px;">ОТМЕНА</a>
     </form>
-</div>
 {% endblock %}
