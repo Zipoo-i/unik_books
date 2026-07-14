@@ -1,27 +1,40 @@
 {% extends 'books/base.html' %}
 {% block content %}
-    <h1>{{ book.title }}</h1>
-    <p><strong>Автор:</strong> {{ book.author }}</p>
-    <p><strong>Жанр:</strong> {{ book.genre }}</p>
-    <p><strong>Дата публикации:</strong> {{ book.published_date }}</p>
-    <p><strong>Описание:</strong> {{ book.description }}</p>
+    <h1 style="color: #000; text-transform: uppercase; margin-top: 0; background: #00E5FF; display: inline-block; padding: 5px 15px; border: 3px solid #000;">{{ book.title }}</h1>
+    
+    <div style="font-family: Arial, sans-serif; font-size: 1.1em; margin-bottom: 30px;">
+        <p><strong>АВТОР:</strong> {{ book.author }}</p>
+        <p><strong>ЖАНР:</strong> {{ book.genre }}</p>
+        <p><strong>ДАТА ПУБЛИКАЦИИ:</strong> {{ book.published_date }}</p>
+        <p style="background: #F4F4F4; padding: 15px; border: 3px solid #000;"><strong>ОПИСАНИЕ:</strong><br>{{ book.description }}</p>
+    </div>
 
     {% if user.is_staff %}
-        <a href="{% url 'edit_book' book.pk %}" class="btn">Редактировать</a>
-        <a href="{% url 'delete_book' book.pk %}" class="btn btn-danger">Удалить</a>
+        <div style="margin-bottom: 30px;">
+            <a href="{% url 'edit_book' book.pk %}" class="btn btn-green">РЕДАКТИРОВАТЬ</a>
+            <a href="{% url 'delete_book' book.pk %}" class="btn btn-danger">УДАЛИТЬ</a>
+        </div>
     {% endif %}
 
     <hr>
-    <h3>Рецензии</h3>
-    <a href="{% url 'add_review' book.pk %}" class="btn">Оставить рецензию</a>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin: 0; color: #B200FF; text-transform: uppercase;">ОТЗЫВЫ 🔥</h2>
+        <a href="{% url 'add_review' book.pk %}" class="btn">ОСТАВИТЬ ОТЗЫВ</a>
+    </div>
+    
     <ul>
         {% for review in book.reviews.all %}
-            <li>
-                <strong>{{ review.reviewer_name }}</strong> (Оценка: {{ review.rating }}/5)<br>
-                {{ review.comment }} <br><small>{{ review.created_at }}</small>
+            <li style="box-shadow: 6px 6px 0px #FF007F;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 2px dashed #000; padding-bottom: 10px;">
+                    <strong style="font-size: 1.2em;">👤 {{ review.reviewer_name }}</strong> 
+                    <span style="background: #FFD500; padding: 5px 10px; border: 2px solid #000; font-weight: 900;">ОЦЕНКА: {{ review.rating }}/5 ⭐</span>
+                </div>
+                <p style="font-size: 1.1em; margin: 10px 0;">{{ review.comment }}</p>
+                <small style="font-weight: bold; color: #555;">{{ review.created_at }}</small>
             </li>
         {% empty %}
-            <p>Отзывов пока нет. Будьте первым!</p>
+            <p style="font-weight: bold; font-family: Arial, sans-serif;">Отзывов пока нет. Жги первым! 🎸</p>
         {% endfor %}
     </ul>
 {% endblock %}

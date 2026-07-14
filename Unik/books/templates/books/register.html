@@ -1,9 +1,9 @@
 {% extends 'books/base.html' %}
 {% block content %}
-    <h1>Регистрация в систему</h1>
+    <h1 style="color: #B200FF; text-transform: uppercase;">Регистрация</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn">Войти</button>
+        <button type="submit" class="btn btn-green">ЗАРЕГИСТРИРОВАТЬСЯ</button>
     </form>
 {% endblock %}
